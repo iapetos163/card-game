@@ -59,3 +59,8 @@
   width: rem(35px);
   height: rem(25px);
 }
+
+.canvasInner img {
+  max-width: rem(35px);
+  max-height: rem(25px);
+}

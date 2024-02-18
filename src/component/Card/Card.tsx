@@ -2,6 +2,7 @@ import { Box, Group, MantineStyleProps, Stack } from '@mantine/core';
 import { PropsWithChildren } from 'react';
 import { Icon, Zap } from 'react-feather';
 import classes from './Card.module.css';
+import slime from '@/asset/slimeGreen.png';
 
 const Stat = ({ children, ...styleProps }: PropsWithChildren & MantineStyleProps) => (
   <Box {...styleProps} className={classes.stat}>
@@ -52,7 +53,9 @@ export const Card = () => {
         </Stack>
       </Stack>
       <Stack align="center" className={classes.canvasOuter}>
-        <div className={classes.canvasInner}></div>
+        <div className={classes.canvasInner}>
+          <img src={slime} />
+        </div>
       </Stack>
     </div>
   );

@@ -1,6 +1,8 @@
 import { Grid, Space, Stack } from '@mantine/core';
 import classes from './PlayGrid.module.css';
 import Card from '../Card';
+import { playCard } from '../Card/play-card';
+import { slime } from '@/card/cards';
 
 /*
 10 -> (10+1) * 30 - 10 == 320
@@ -12,7 +14,7 @@ export const PlayGrid = () => {
     <Grid w={350} gutter={10} ml={5} overflow="hidden">
       <Grid.Col span={2}>
         {/* <Stack className={classes.place}></Stack> */}
-        <Card />
+        <Card def={playCard(slime)} />
       </Grid.Col>
       <Grid.Col span={2}>
         <Stack className={classes.place}></Stack>

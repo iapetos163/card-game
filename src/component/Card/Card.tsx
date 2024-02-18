@@ -1,8 +1,10 @@
 import { Box, Group, MantineStyleProps, Stack } from '@mantine/core';
-import { PropsWithChildren } from 'react';
-import { Icon, Zap } from 'react-feather';
+import { PropsWithChildren, useMemo } from 'react';
 import classes from './Card.module.css';
-import slime from '@/asset/slimeGreen.png';
+import { cardImages } from './card-display';
+import { PlayedCard } from '@/card';
+import { Effect, EffectProps } from './Effect';
+import chunk from '@/util/chunk';
 
 const Stat = ({ children, ...styleProps }: PropsWithChildren & MantineStyleProps) => (
   <Box {...styleProps} className={classes.stat}>
@@ -10,51 +12,70 @@ const Stat = ({ children, ...styleProps }: PropsWithChildren & MantineStyleProps
   </Box>
 );
 
-interface EffectProps extends MantineStyleProps {
-  Icon: Icon;
-  size: 16 | 24;
-  value?: number;
+export interface CardProps extends MantineStyleProps {
+  def: PlayedCard;
 }
 
-const Effect = ({ Icon, value, size, ...styleProps }: EffectProps) => (
-  <Box c={'gray.7'} h={size} {...styleProps} className={classes.effect}>
-    <Icon size={size} />
-    {typeof value === 'number' && (
-      <Stack justify="center" align="center" className={classes.effectValueOuter}>
-        <div className={classes.effectValueInner}>{value}</div>
-      </Stack>
-    )}
-  </Box>
-);
+export const Card = ({ def, ...props }: CardProps) => {
+  const effectSections = useMemo(() => {
+    const valuedEffects = def.effects.filter((e) => typeof e.value === 'number');
+    const unvaluedEffects = def.effects.filter((e) => typeof e.value !== 'number');
 
-export const Card = () => {
+    if (valuedEffects.length === 0 && unvaluedEffects.length <= 2) {
+      return [unvaluedEffects.map((e): EffectProps => ({ ...e, size: 24 }))];
+    }
+    if (valuedEffects.length === 0) {
+      return chunk(
+        unvaluedEffects.map((e): EffectProps => ({ ...e, size: 16 })),
+        3
+      );
+    }
+
+    const largeSections = chunk(
+      valuedEffects.map((e): EffectProps => ({ ...e, size: 24 })),
+      2
+    );
+
+    const lastLargeSection = largeSections[largeSections.length - 1];
+    if (unvaluedEffects.length === 1 && lastLargeSection.length === 1) {
+      lastLargeSection.push({ ...unvaluedEffects[0], size: 24 });
+      return largeSections;
+    }
+
+    return [
+      ...largeSections,
+      ...chunk(
+        unvaluedEffects.map((e): EffectProps => ({ ...e, size: 16 })),
+        3
+      ),
+    ];
+  }, [def]);
+
   return (
-    <div className={classes.card}>
+    <div {...props} className={classes.card}>
       <Stack gap={4} justify="space-between" h="100%">
         <Group gap={2} justify="space-between">
           <Group gap={2} flex={1}>
-            <Stat bg={'black'}>5</Stat>
-            <Stat bg={'violet.9'}>2</Stat>
+            {/* <Stat bg={'black'}>5</Stat>
+            <Stat bg={'violet.9'}>2</Stat> */}
           </Group>
           <Group gap={2} flex={1} justify="flex-end">
-            <Stat bg={'red.9'}>9</Stat>
-            <Stat bg={'blue.9'}>7</Stat>
-            {/* <Stat bg={'blue.9'}>7</Stat> */}
+            <Stat bg={'red.9'}>{def.health}</Stat>
           </Group>
         </Group>
         <Stack gap={2} align="center" justify="space-around" className={classes.effectsSection}>
-          <Group gap={1} justify="space-around" w="100%">
-            <Effect size={24} value={2} Icon={Zap} />
-            <Effect size={24} Icon={Zap} />
-          </Group>
-          {/* <Group gap={1} w="100%" justify="space-around">
-            <Effect size={16} Icon={Zap} />
-          </Group> */}
+          {effectSections.map((section, i) => (
+            <Group key={i} gap={1} justify="space-around" w="100%">
+              {section.map((effectProps) => (
+                <Effect key={effectProps.effectType} {...effectProps} />
+              ))}
+            </Group>
+          ))}
         </Stack>
       </Stack>
       <Stack align="center" className={classes.canvasOuter}>
         <div className={classes.canvasInner}>
-          <img src={slime} />
+          <img src={cardImages[def.id]} />
         </div>
       </Stack>
     </div>

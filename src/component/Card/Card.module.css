@@ -1,0 +1,61 @@
+.card {
+  --color-card: #f5e7d5;
+  --color-card-transparent-1: #f5e7d5dd;
+  --color-card-transparent-2: #f5e7d566;
+
+  position: relative;
+  padding: rem(1px);
+  background-color: var(--color-card);
+  width: rem(55px);
+  height: rem(77px);
+}
+
+.stat {
+  color: white;
+  line-height: 1;
+  font-size: rem(11px);
+  padding: rem(2px);
+  border-radius: rem(4px);
+  z-index: 1;
+}
+
+.effectsSection {
+  z-index: 1;
+  background-color: var(--color-card-transparent-2);
+  overflow: hidden;
+  min-height: rem(33px);
+}
+
+.effect {
+  position: relative;
+  line-height: 1;
+  z-index: 600;
+}
+
+.effectValueOuter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.effectValueInner {
+  padding: 3px 4px;
+  font-size: rem(11px);
+  line-height: 1;
+  background: radial-gradient(var(--color-card), var(--color-card-transparent-1) 40%, transparent);
+}
+
+.canvasOuter {
+  position: absolute;
+  top: rem(17px);
+  left: 0;
+  right: 0;
+}
+
+.canvasInner {
+  background-color: white;
+  width: rem(35px);
+  height: rem(25px);
+}

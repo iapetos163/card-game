@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['mantine'],
+  extends: ['birbcore/react', 'mantine'],
   parserOptions: {
     project: './tsconfig.json',
   },

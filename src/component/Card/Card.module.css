@@ -6,8 +6,8 @@
   position: relative;
   padding: rem(1px);
   background-color: var(--color-card);
-  width: rem(55px);
-  height: rem(77px);
+  width: rem(60px);
+  height: rem(84px);
 }
 
 .stat {
@@ -29,7 +29,6 @@
 .effect {
   position: relative;
   line-height: 1;
-  z-index: 600;
 }
 
 .effectValueOuter {
@@ -49,18 +48,18 @@
 
 .canvasOuter {
   position: absolute;
-  top: rem(17px);
+  top: rem(18px);
   left: 0;
   right: 0;
 }
 
 .canvasInner {
   background-color: white;
-  width: rem(35px);
-  height: rem(25px);
+  width: rem(42px);
+  height: rem(30px);
 }
 
 .canvasInner img {
-  max-width: rem(35px);
-  max-height: rem(25px);
+  max-width: rem(42px);
+  max-height: rem(30px);
 }

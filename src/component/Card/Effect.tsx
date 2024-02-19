@@ -8,7 +8,7 @@ const effectIcons: Record<CardEffectType, React.FunctionComponent<React.Componen
 };
 
 export interface EffectProps extends MantineStyleProps, CardEffect {
-  size: 16 | 24;
+  size: 18 | 27;
 }
 
 export const Effect = ({ effectType, value, size, ...styleProps }: EffectProps) => {

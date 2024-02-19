@@ -1,5 +1,5 @@
 .place {
   background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-8));
-  width: rem(55px);
-  height: rem(77px);
+  width: rem(60px);
+  height: rem(84px);
 }

@@ -16,36 +16,39 @@ export interface CardProps extends MantineStyleProps {
   def: PlayedCard;
 }
 
+const ICON_SIZE_XS = 18 as const;
+const ICON_SIZE_SM = 27 as const;
+
 export const Card = ({ def, ...props }: CardProps) => {
   const effectSections = useMemo(() => {
     const valuedEffects = def.effects.filter((e) => typeof e.value === 'number');
     const unvaluedEffects = def.effects.filter((e) => typeof e.value !== 'number');
 
     if (valuedEffects.length === 0 && unvaluedEffects.length <= 2) {
-      return [unvaluedEffects.map((e): EffectProps => ({ ...e, size: 24 }))];
+      return [unvaluedEffects.map((e): EffectProps => ({ ...e, size: ICON_SIZE_SM }))];
     }
     if (valuedEffects.length === 0) {
       return chunk(
-        unvaluedEffects.map((e): EffectProps => ({ ...e, size: 16 })),
+        unvaluedEffects.map((e): EffectProps => ({ ...e, size: ICON_SIZE_XS })),
         3
       );
     }
 
     const largeSections = chunk(
-      valuedEffects.map((e): EffectProps => ({ ...e, size: 24 })),
+      valuedEffects.map((e): EffectProps => ({ ...e, size: ICON_SIZE_SM })),
       2
     );
 
     const lastLargeSection = largeSections[largeSections.length - 1];
     if (unvaluedEffects.length === 1 && lastLargeSection.length === 1) {
-      lastLargeSection.push({ ...unvaluedEffects[0], size: 24 });
+      lastLargeSection.push({ ...unvaluedEffects[0], size: ICON_SIZE_SM });
       return largeSections;
     }
 
     return [
       ...largeSections,
       ...chunk(
-        unvaluedEffects.map((e): EffectProps => ({ ...e, size: 16 })),
+        unvaluedEffects.map((e): EffectProps => ({ ...e, size: ICON_SIZE_XS })),
         3
       ),
     ];

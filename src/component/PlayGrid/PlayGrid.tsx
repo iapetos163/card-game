@@ -11,7 +11,7 @@ import { slime } from '@/card/cards';
 
 export const PlayGrid = () => {
   return (
-    <Grid w={350} gutter={10} ml={5} overflow="hidden">
+    <Grid w={380} gutter={10} overflow="hidden">
       <Grid.Col span={2}>
         {/* <Stack className={classes.place}></Stack> */}
         <Card def={playCard(slime)} />

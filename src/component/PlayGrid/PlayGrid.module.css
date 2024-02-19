@@ -2,4 +2,19 @@
   background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-gray-8));
   width: rem(60px);
   height: rem(84px);
+  border-radius: 0;
+  outline-offset: -4px;
+}
+
+.place:disabled {
+  cursor: default;
+}
+
+.place:active,
+.place:active:hover {
+  outline: 2px solid var(--mantine-color-yellow-4);
+}
+
+.place:hover {
+  outline: 2px solid var(--mantine-color-blue-6);
 }
